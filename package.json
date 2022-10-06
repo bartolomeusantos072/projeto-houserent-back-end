@@ -1,4 +1,19 @@
 {
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node src/server.ts",
+    "dev": "nodemon src/server.ts",
+    "prisma-prod": "prisma migrate deploy",
+    "prisma-test": "dotenv -e .env.test prisma migrate reset --skip-seed",
+    "test": "npm run prisma-test && cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
     "@types/cors": "^2.8.12",
