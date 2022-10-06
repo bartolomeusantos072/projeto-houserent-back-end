@@ -7,9 +7,6 @@
   "scripts": {
     "dev": "nodemon ./src/sever.ts"
   },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
     "@types/bcrypt": "^5.0.0",
