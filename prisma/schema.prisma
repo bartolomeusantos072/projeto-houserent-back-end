@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  phone       String
+  cellphone   String
+  cpf         String
+  observation String
+  address     Address[]
+  houses      House[]
+  drivers     Driver[]
+  services    Service[]
+
+  @@map("users")
+}
+model Address {
+  id             Int     @id @default(autoincrement())
+  user           User    @relation(fields: [userId], references: [id])
+  state          String
+  county         String
+  district       String
+  suburb         String
+  street         String
+  number         String
+  complement     String
+  zipCode        String
+  referencePoint String
+  userId         Int
+
+  @@map("address")
+}
+
+
+model House {
+  id            Int       @id @default(autoincrement())
+  proprietary   User      @relation(fields: [proprietaryId], references: [id])
+  type          String
+  dormitory     Int
+  bathrooms     Int
+  garage        Int
+  iptu          String   @unique
+  price         String
+  condominium   String
+  wather        String
+  light         String
+  proprietaryId Int
+  address       AddressHouse[]
+  photos        PhotosHouse[]
+
+  
+  @@map("houses")
+}
+
+model AddressHouse {
+  id             Int     @id @default(autoincrement())
+  house          House    @relation(fields: [houseId], references: [id])
+  state          String
+  county         String
+  district       String
+  suburb         String
+  street         String
+  number         String
+  complement     String
+  zipCode        String
+  referencePoint String
+  houseId         Int
+
+  @@map("addressHouse")
+}
+model PhotosHouse {
+  id      Int       @id @default(autoincrement())
+  house   House     @relation(fields: [houseId],references: [id])
+  name    String
+  houseId Int
+
+  @@map("photosHouse")
+}
+
+
+model Service {
+  id       Int        @id @default(autoincrement())
+  user     User       @relation(fields: [userId], references: [id])
+  service  String
+  photos   PhotosService[]
+  userId   Int
+
+  @@unique([userId])
+  @@map("services")
+}
+model PhotosService {
+  id      Int       @id @default(autoincrement())
+  service Service     @relation(fields: [serviceId],references: [id])
+  name    String
+  serviceId Int
+
+  @@map("photosService")
+}
+
+model Driver {
+  id     Int      @id @default(autoincrement())
+  user   User     @relation(fields: [userId], references: [id])
+  type   String
+  year   String
+  brand  String
+  model  String
+  color  String
+  plate  String   @unique
+  photos PhotosDriver[]
+  userId Int
+
+  @@unique([plate, userId])
+  @@map("driver")
+}
+model PhotosDriver {
+  id      Int       @id @default(autoincrement())
+  driver Driver     @relation(fields: [driverId],references: [id])
+  name    String
+  driverId Int
+
+  @@map("photosDriver")
+}
+
+
+
