@@ -15,11 +15,8 @@ function signIn() {
 
 }
 
-
-
 async function signUp(login: Login) {
-    const id = Math.floor(Date.now() * Math.random());
-
+    // const id = Math.floor(Date.now() * Math.random());
     const user = await prisma.user.create({
         data: {
             name: login.email,
