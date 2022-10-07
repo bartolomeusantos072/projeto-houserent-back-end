@@ -4,7 +4,7 @@ import { prisma } from "../../src/config/database";
 import { AddPhotoHouse, CreateAddressHouse, CreateHouseRent } from '../../src/utils/typeUtils';
 
 
-export async function createHouseRent(proprietaryId:number){
+ async function createHouseRent(proprietaryId:number){
     const house = await prisma.house.create({
         data:{
             type: faker.helpers.shuffle([
@@ -37,7 +37,7 @@ export async function createHouseRent(proprietaryId:number){
     return house;
 }
 
-export async function createAddressHouseRent(houseId:number){
+ async function createAddressHouseRent(houseId:number){
     const addressHouse = await prisma.addressHouse.create({
         data:{
             state: faker.address.state(),
@@ -57,12 +57,13 @@ export async function createAddressHouseRent(houseId:number){
 }
  
 
-export async function createPhotosHouses(houseId:number) {
+ async function createPhotosHouses(houseId:number) {
+    const photo ={
+        name:faker.image.imageUrl(), 
+        houseId
+    }
     const photos = await prisma.photosHouse.create({
-            data: {
-                name:faker.image.imageUrl(), 
-                houseId,
-             }
+            data:photo,
         });
 
     return photos;
