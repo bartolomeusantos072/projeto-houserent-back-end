@@ -1,85 +1,77 @@
 import { faker } from '@faker-js/faker';
-
+import { AddressHouse, PhotosHouse } from '@prisma/client';
 import { prisma } from "../../src/config/database";
-
-import { createHouseRent } from '../../src/utils/typeUtils';
-
+import { AddPhotoHouse, CreateAddressHouse, CreateHouseRent } from '../../src/utils/typeUtils';
 
 
-function createHouseRentInfo() {
-    return {
-        type: faker.helpers.shuffle([
-            'house',
-            'apartment',
-            'kitnet',
-          ])[0]!,
-        dormitory: faker.random.numeric(1),
-        bathrooms: faker.random.numeric(1),
-        garage: faker.random.numeric(1),
-        iptu: faker.random.alphaNumeric(10),
-        price: faker.finance.amount(),
-        condominium: faker.finance.amount(),
-        wather: faker.helpers.shuffle([
-            'registro individual',
-            'registro dividido entre os moradores',
-            'agua inclusa',
-            'outro'
-          ])[0]!,
-        ligth: faker.helpers.shuffle([
-            'relogio individual',
-            'relogio dividido entre os moradores',
-            'luz inclusa',
-            'outro'
-          ])[0]!,
-          availability:faker.datatype.boolean(),
-          address: {
-            create:{
-                state: faker.address.state(),
-                country: faker.address.country(),
-                district: faker.address.cityName(),
-                suburb: faker.address.city(),
-                street: faker.address.street(),
-                number: faker.address.buildingNumber(),
-                complement: faker.commerce.productName(),
-                zipCode: faker.address.zipCode(),
-                referencePoint: faker.commerce.department(),    
-            }
-        },
-        photos:{
-            create:[
-                {
-                    name:faker.image.imageUrl(),
-                },
-                {
-                    name:faker.image.imageUrl(),
-                },
-                {
-                    name:faker.image.imageUrl(),
-                },
-                {
-                    name:faker.image.imageUrl(),
-                },
-                ]
+export async function createHouseRent(proprietaryId:number){
+    const house = await prisma.house.create({
+        data:{
+            type: faker.helpers.shuffle([
+                'house',
+                'apartment',
+                'kitnet',
+              ])[0]!,
+            dormitory: Number(faker.random.numeric(1)),
+            bathrooms: Number(faker.random.numeric(1)),
+            garage: Number(faker.random.numeric(1)),
+            iptu: faker.random.alphaNumeric(10),
+            price: faker.finance.amount(),
+            condominium: faker.finance.amount(),
+            wather: faker.helpers.shuffle([
+                'registro individual',
+                'registro dividido entre os moradores',
+                'agua inclusa',
+                'outro'
+              ])[0]!,
+            light: faker.helpers.shuffle([
+                'relogio individual',
+                'relogio dividido entre os moradores',
+                'luz inclusa',
+                'outro'
+              ])[0]!,
+              availability:faker.datatype.boolean(),
+              proprietaryId,
         }
-
-
-    }
-
+    })
+    return house;
 }
 
+export async function createAddressHouseRent(houseId:number){
+    const addressHouse = await prisma.addressHouse.create({
+        data:{
+            state: faker.address.state(),
+            country: faker.address.country(),
+            district: faker.address.cityName(),
+            suburb: faker.address.city(),
+            street: faker.address.street(),
+            number: faker.address.buildingNumber(),
+            complement: faker.commerce.productName(),
+            zipCode: faker.address.zipCode(),
+            referencePoint: faker.commerce.department(),
+            houseId,   
+        }
+    });
+    
+    return addressHouse;
+}
+ 
 
-
-async function createHouseRent(createHouseRentInfo:createHouseRent, proprietaryId: number) {
-    const house = await prisma.house.create({
-            data: { ...createHouseRentInfo, proprietaryId }
+export async function createPhotosHouses(houseId:number) {
+    const photos = await prisma.photosHouse.create({
+            data: {
+                name:faker.image.imageUrl(), 
+                houseId,
+             }
         });
 
-    return house;
+    return photos;
 }
 
 const houseFactory = {
     createHouseRent,
-    createHouseRentInfo
+    createAddressHouseRent,
+    createPhotosHouses
 }
 
 export default houseFactory;

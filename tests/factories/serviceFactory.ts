@@ -4,7 +4,7 @@ import { CreateService } from '../../src/utils/typeUtils';
 
 function createServiceSupplierInfo(){
     return{
-        service:faker.name.jobTitle(),
+        title:faker.name.jobTitle(),
         
         photos:{
             create:[
