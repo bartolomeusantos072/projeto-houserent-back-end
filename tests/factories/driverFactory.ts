@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { prisma } from "../../src/config/database";
-import { CreateDriver, CreateService } from '../../src/utils/typeUtils';
+import { CreateDriver } from '../../src/utils/typeUtils';
 
 function createDriverChangeInfo(){
     return{
@@ -22,7 +22,7 @@ function createDriverChangeInfo(){
                 },
                 {
                     name:faker.image.imageUrl(),
-                },
+                }
                 
                 ]
         }
@@ -30,12 +30,12 @@ function createDriverChangeInfo(){
 }
 
 
-async function createDriverChange(createDriverChangeInfo: CreateDriver,userId: number ){
-    const service = await prisma.service.create({
+async function createDriverChange(createDriverChangeInfo: CreateDriver, userId: number ){
+    const driver = await prisma.driver.create({
        data:{...createDriverChangeInfo,userId}
     });
 
-    return service;
+    return driver;
 }
 
 const serviceFactory={
