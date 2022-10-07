@@ -43,6 +43,22 @@ function createHouseRentInfo() {
                 zipCode: faker.address.zipCode(),
                 referencePoint: faker.commerce.department(),    
             }
+        },
+        photos:{
+            create:[
+                {
+                    name:faker.image.imageUrl(),
+                },
+                {
+                    name:faker.image.imageUrl(),
+                },
+                {
+                    name:faker.image.imageUrl(),
+                },
+                {
+                    name:faker.image.imageUrl(),
+                },
+                ]
         }
 
 
@@ -53,16 +69,16 @@ function createHouseRentInfo() {
 
 
 async function createHouseRent(createHouseRentInfo:createHouseRent, proprietaryId: number) {
-    const service = await prisma.house.create({
+    const house = await prisma.house.create({
             data: { ...createHouseRentInfo, proprietaryId }
         });
 
-    return service;
+    return house;
 }
 
-const serviceFactory = {
+const houseFactory = {
     createHouseRent,
     createHouseRentInfo
 }
 
-export default serviceFactory;
+export default houseFactory;

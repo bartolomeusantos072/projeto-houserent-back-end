@@ -38,9 +38,9 @@ async function createDriverChange(createDriverChangeInfo: CreateDriver, userId: 
     return driver;
 }
 
-const serviceFactory={
+const driverFactory={
     createDriverChange,
     createDriverChangeInfo
 }
 
-export default serviceFactory;
+export default driverFactory;

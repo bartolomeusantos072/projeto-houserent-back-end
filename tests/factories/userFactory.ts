@@ -38,7 +38,8 @@ async function signUp(login: Login) {
                     zipCode: faker.address.zipCode(),
                     referencePoint: faker.commerce.department(),    
                 }
-            }
+            },
+            
         }
     });
 

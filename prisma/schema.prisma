@@ -132,6 +132,3 @@ model PhotosDriver {
 
   @@map("photosDriver")
 }
-
-
-
