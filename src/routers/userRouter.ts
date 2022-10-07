@@ -9,7 +9,7 @@ userRouter.post("/sign-up", (req:Request,res:Response)=>{
     console.log(req.body);
 });
 
-userRouter.post("/sign-up", (req:Request,res:Response)=>{
+userRouter.post("/sign-in", (req:Request,res:Response)=>{
     console.log(req.body);
 });
 

@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { prisma } from "../../src/config/database";
 import { CreateDriver } from '../../src/utils/typeUtils';
 
-function createDriverChangeInfo(){
+function createDriverChangeInfo(userId:number){
     return{
         vehicle  :faker.vehicle.vehicle(),
         type:  faker.vehicle.type(),
@@ -25,14 +25,14 @@ function createDriverChangeInfo(){
                 }
                 
                 ]
-        }
+        },userId,
     }
 }
 
 
-async function createDriverChange(createDriverChangeInfo: CreateDriver, userId: number ){
+async function createDriverChange(createDriverChangeInfo: CreateDriver ){
     const driver = await prisma.driver.create({
-       data:{...createDriverChangeInfo,userId}
+       data:{...createDriverChangeInfo}
     });
 
     return driver;

@@ -69,7 +69,7 @@ model AddressHouse {
   id             Int     @id @default(autoincrement())
   house          House    @relation(fields: [houseId], references: [id])
   state          String
-  country         String
+  country        String
   district       String
   suburb         String
   street         String

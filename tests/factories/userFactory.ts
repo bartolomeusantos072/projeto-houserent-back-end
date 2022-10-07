@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
+import { User } from '@prisma/client';
 import bcrypt from 'bcrypt'
 import { prisma } from "../../src/config/database";
+
 
 
 interface Login { email: string, password: string };
@@ -16,7 +18,7 @@ function signIn() {
 }
 
 async function signUp() {
-    const user = await prisma.user.create({
+    const user:User= await prisma.user.create({
         data: {
             name: faker.internet.email(),
             password: bcrypt.hashSync(faker.internet.password(), 12),
