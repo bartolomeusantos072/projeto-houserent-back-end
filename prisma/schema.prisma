@@ -26,11 +26,12 @@ model User {
 
   @@map("users")
 }
+
 model Address {
-  id             Int     @id @default(autoincrement())
-  user           User    @relation(fields: [userId], references: [id])
+  id             Int    @id @default(autoincrement())
+  user           User   @relation(fields: [userId], references: [id])
   state          String
-  country         String
+  country        String
   district       String
   suburb         String
   street         String
@@ -43,15 +44,14 @@ model Address {
   @@map("address")
 }
 
-
 model House {
-  id            Int       @id @default(autoincrement())
-  proprietary   User      @relation(fields: [proprietaryId], references: [id])
+  id            Int            @id @default(autoincrement())
+  proprietary   User           @relation(fields: [proprietaryId], references: [id])
   type          String
   dormitory     Int
   bathrooms     Int
   garage        Int
-  iptu          String   @unique
+  iptu          String         @unique
   price         String
   condominium   String
   wather        String
@@ -61,13 +61,12 @@ model House {
   address       AddressHouse[]
   photos        PhotosHouse[]
 
-  
   @@map("houses")
 }
 
 model AddressHouse {
-  id             Int     @id @default(autoincrement())
-  house          House    @relation(fields: [houseId], references: [id])
+  id             Int    @id @default(autoincrement())
+  house          House  @relation(fields: [houseId], references: [id])
   state          String
   country        String
   district       String
@@ -77,58 +76,59 @@ model AddressHouse {
   complement     String
   zipCode        String
   referencePoint String
-  houseId         Int
+  houseId        Int
 
   @@map("addressHouse")
 }
+
 model PhotosHouse {
-  id      Int       @id @default(autoincrement())
-  house   House     @relation(fields: [houseId],references: [id])
+  id      Int    @id @default(autoincrement())
+  house   House  @relation(fields: [houseId], references: [id])
   name    String
   houseId Int
 
   @@map("photosHouse")
 }
 
-
 model Service {
-  id       Int        @id @default(autoincrement())
-  user     User       @relation(fields: [userId], references: [id])
-  title    String
-  photos   PhotosService[]
-  userId   Int
+  id     Int             @id @default(autoincrement())
+  user   User            @relation(fields: [userId], references: [id])
+  title  String
+  photos PhotosService[]
+  userId Int
 
   @@unique([userId])
   @@map("services")
 }
+
 model PhotosService {
-  id      Int       @id @default(autoincrement())
-  service Service     @relation(fields: [serviceId],references: [id])
-  name    String
+  id        Int     @id @default(autoincrement())
+  service   Service @relation(fields: [serviceId], references: [id])
+  name      String
   serviceId Int
 
   @@map("photosService")
 }
 
-
 model Driver {
-  id     Int      @id @default(autoincrement())
-  user   User     @relation(fields: [userId], references: [id])
-  vehicle   String
-  type   String
-  manufacturer  String
-  color  String
-  plate  String   @unique
-  photos PhotosDriver[]
-  userId Int
+  id           Int            @id @default(autoincrement())
+  user         User           @relation(fields: [userId], references: [id])
+  vehicle      String
+  type         String
+  manufacturer String
+  color        String
+  plate        String         @unique
+  photos       PhotosDriver[]
+  userId       Int
 
   @@unique([plate, userId])
   @@map("driver")
 }
+
 model PhotosDriver {
-  id      Int       @id @default(autoincrement())
-  driver Driver     @relation(fields: [driverId],references: [id])
-  name    String
+  id       Int    @id @default(autoincrement())
+  driver   Driver @relation(fields: [driverId], references: [id])
+  imageUrl String
   driverId Int
 
   @@map("photosDriver")
