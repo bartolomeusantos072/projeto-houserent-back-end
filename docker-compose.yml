@@ -1,26 +1,15 @@
-version: '3'
+# Set the version of docker compose to use
+version: '3.9'
 
-
+# The containers that compose the project
 services:
-  app:
-    build: 
-    command: npm start
-    ports:
-      - '5000:5000'
-    volumes:
-        - .:/usr/app
-
-db:
-  database:
+  db:
     image: postgres:13
-    environment:
-      - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=postgres"
-      - "POSTGRES_DB=houserent"
+    restart: always
+    container_name: integration-tests-prisma
     ports:
-      - 5441:5432
-    volumes:
-      - data:/var/lib/postgresql/data
-      - type: tmpfs
-        target: /dev/shm
-
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+      POSTGRES_DB: houserental_test

@@ -31,7 +31,6 @@ function createHouseRentInfo() {
             'luz inclusa',
             'outro'
           ])[0]!,
-          availability:faker.datatype.boolean(),
           address: {
             create:{
                 state: faker.address.state(),

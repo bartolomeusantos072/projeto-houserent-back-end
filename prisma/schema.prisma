@@ -76,6 +76,7 @@ model AddressHouse {
   complement     String
   zipCode        String
   referencePoint String
+  availability   Boolean
   houseId         Int
 
   @@map("addressHouse")

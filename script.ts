@@ -6,6 +6,7 @@ async function main() {
     const user = await prisma.user.create({
         data: {
             name: faker.name.fullName(),
+            password:faker.internet.password(),
             email: faker.internet.email(),
             phone: faker.phone.number('+55 32 #### ####'),
             cellphone: faker.phone.number('+55 32 #### #####'),
@@ -14,7 +15,7 @@ async function main() {
             address: {
                 create:{
                     state:faker.address.state(),
-                    county: faker.address.country(),
+                    country: faker.address.country(),
                     district: faker.address.cityName(),
                     suburb: faker.address.city(),
                     street: faker.address.street(),

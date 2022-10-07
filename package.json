@@ -6,8 +6,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/sever.ts",
-    "test": "jest"
+    "test": "dotenv -e .env.test prisma migrate dev && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest --runInBand"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
     "@types/bcrypt": "^5.0.0",
@@ -17,7 +23,7 @@
     "@types/jest": "^29.1.2",
     "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^8.5.9",
-    "@types/node": "^18.8.2",
+    "@types/node": "^18.8.3",
     "@types/pg": "^8.6.5",
     "@types/supertest": "^2.0.12",
     "axios": "^1.0.0",

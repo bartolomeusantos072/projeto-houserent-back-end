@@ -5,8 +5,8 @@ import { prisma } from "../../src/config/database";
 
 
 describe('Test User',()=>{
-    
-  it('create User',async ()=>{
+
+  test('create User',async ()=>{
       const signUp = await userFactory.signUp();
       const response= await supertest(app).post("/sign-up").send(signUp)
       expect(response.status).toBe(201);
