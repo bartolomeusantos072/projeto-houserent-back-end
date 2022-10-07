@@ -93,7 +93,7 @@ model PhotosHouse {
 model Service {
   id       Int        @id @default(autoincrement())
   user     User       @relation(fields: [userId], references: [id])
-  service  String
+  title    String
   photos   PhotosService[]
   userId   Int
 
@@ -109,13 +109,13 @@ model PhotosService {
   @@map("photosService")
 }
 
+
 model Driver {
   id     Int      @id @default(autoincrement())
   user   User     @relation(fields: [userId], references: [id])
+  vehicle   String
   type   String
-  year   String
-  brand  String
-  model  String
+  manufacturer  String
   color  String
   plate  String   @unique
   photos PhotosDriver[]

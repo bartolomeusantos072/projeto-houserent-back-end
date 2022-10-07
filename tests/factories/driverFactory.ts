@@ -1,14 +1,18 @@
 import { faker } from '@faker-js/faker';
 import { prisma } from "../../src/config/database";
-import { CreateService } from '../../src/utils/typeUtils';
+import { CreateDriver, CreateService } from '../../src/utils/typeUtils';
 
-function createServiceSupplierInfo(){
+function createDriverChangeInfo(){
     return{
-        service:faker.name.jobArea(),
+        vehicle  :faker.vehicle.vehicle(),
+        type:  faker.vehicle.type(),
+        manufacturer  :faker.vehicle.manufacturer(),
+        color  :faker.vehicle.color(),
+        plate  :faker.vehicle.vrm() ,
         photos:{
             create:[
                 {
-                    name:faker.image.imageUrl(),
+                    name:faker.image.transport(),
                 },
                 {
                     name:faker.image.imageUrl(),
@@ -19,23 +23,24 @@ function createServiceSupplierInfo(){
                 {
                     name:faker.image.imageUrl(),
                 },
+                
                 ]
         }
     }
 }
 
 
-async function createServiceSupplier(createServiceSupplierInfo: CreateService,userId: number ){
+async function createDriverChange(createDriverChangeInfo: CreateDriver,userId: number ){
     const service = await prisma.service.create({
-       data:{...createServiceSupplierInfo,userId}
+       data:{...createDriverChangeInfo,userId}
     });
 
     return service;
 }
 
 const serviceFactory={
-    createServiceSupplier,
-    createServiceSupplierInfo
+    createDriverChange,
+    createDriverChangeInfo
 }
 
 export default serviceFactory;
