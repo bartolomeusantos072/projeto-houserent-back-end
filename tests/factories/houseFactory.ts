@@ -31,6 +31,19 @@ function createHouseRentInfo() {
             'luz inclusa',
             'outro'
           ])[0]!,
+          address: {
+            create:{
+                state: faker.address.state(),
+                country: faker.address.country(),
+                district: faker.address.cityName(),
+                suburb: faker.address.city(),
+                street: faker.address.street(),
+                number: faker.address.buildingNumber(),
+                complement: faker.commerce.productName(),
+                zipCode: faker.address.zipCode(),
+                referencePoint: faker.commerce.department(),    
+            }
+        }
 
 
     }

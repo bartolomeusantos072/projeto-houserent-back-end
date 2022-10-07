@@ -30,7 +30,7 @@ model Address {
   id             Int     @id @default(autoincrement())
   user           User    @relation(fields: [userId], references: [id])
   state          String
-  county         String
+  country         String
   district       String
   suburb         String
   street         String
@@ -68,7 +68,7 @@ model AddressHouse {
   id             Int     @id @default(autoincrement())
   house          House    @relation(fields: [houseId], references: [id])
   state          String
-  county         String
+  country         String
   district       String
   suburb         String
   street         String

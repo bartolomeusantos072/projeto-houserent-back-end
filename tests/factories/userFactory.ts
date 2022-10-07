@@ -29,7 +29,7 @@ async function signUp(login: Login) {
             address: {
                 create:{
                     state: faker.address.state(),
-                    county: faker.address.country(),
+                    country: faker.address.country(),
                     district: faker.address.cityName(),
                     suburb: faker.address.city(),
                     street: faker.address.street(),
