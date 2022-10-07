@@ -15,12 +15,12 @@ function signIn() {
 
 }
 
-async function signUp(login: Login) {
+async function signUp() {
     // const id = Math.floor(Date.now() * Math.random());
     const user = await prisma.user.create({
         data: {
-            name: login.email,
-            password: bcrypt.hashSync(login.password, 12),
+            name: faker.internet.email(),
+            password: bcrypt.hashSync(faker.internet.password(), 12),
             email: faker.internet.email(),
             phone: faker.phone.number('+55 32 #### ####'),
             cellphone: faker.phone.number('+55 32 #### #####'),
@@ -43,7 +43,7 @@ async function signUp(login: Login) {
         }
     });
 
-    return { ...user, plainPassword: login.password };
+    return { ...user };
 }
 
 

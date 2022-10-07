@@ -5,7 +5,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/sever.ts"
+    "dev": "nodemon ./src/sever.ts",
+    "test": "jest"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
