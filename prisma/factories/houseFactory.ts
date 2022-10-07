@@ -58,15 +58,14 @@ import { AddPhotoHouse, CreateAddressHouse, CreateHouseRent } from '../../src/ut
  
 
  async function createPhotosHouses(houseId:number) {
-    const photo ={
-        name:faker.image.imageUrl(), 
-        houseId
-    }
-    const photos = await prisma.photosHouse.create({
-            data:photo,
-        });
+    const photo = await prisma.photosHouse.create({
+        data: {
+            name:faker.image.imageUrl(), 
+            houseId
+        }
+    });
 
-    return photos;
+    return photo;
 }
 
 const houseFactory = {

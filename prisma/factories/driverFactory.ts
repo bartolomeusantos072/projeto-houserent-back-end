@@ -4,7 +4,7 @@ import { prisma } from "../../src/config/database";
 
 async function createPhotosVehicle(driverId:number) {
     const photo ={
-        name:faker.image.imageUrl(), 
+        imageUrl:faker.image.imageUrl(), 
         driverId
     }
     const photos = await prisma.photosDriver.create({

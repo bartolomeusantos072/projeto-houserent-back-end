@@ -12,7 +12,10 @@ async function main() {
     //create house
     const house =await houseFactory.createHouseRent(createUser.id);
     const addressHouse = await houseFactory.createAddressHouseRent(house.id)
-    const photosHouse = await houseFactory.createPhotosHouses(house.id)
+    const photosHouse1 = await houseFactory.createPhotosHouses(house.id)
+    const photosHouse2 = await houseFactory.createPhotosHouses(house.id)
+    const photosHouse3 = await houseFactory.createPhotosHouses(house.id)
+    const photosHouse4 = await houseFactory.createPhotosHouses(house.id)
 
     const createHouseRent = await prisma.house.create({
         data:{
@@ -22,10 +25,10 @@ async function main() {
             },
             photos:{
                 create:[
-                    photosHouse,
-                    photosHouse,
-                    photosHouse,
-                    photosHouse,
+                    photosHouse1,
+                    photosHouse2,
+                    photosHouse3,
+                    photosHouse4,
                 ]
             }
         }
@@ -49,7 +52,7 @@ async function main() {
     })
     
     const service =await serviceFactory.createServiceSupplier(createUser.id)
-    const photosService = await driverFactory.createPhotosVehicle(vehicle.id)
+    const photosService = await serviceFactory.createPhotosService(service.id)
     const createServiceSupplier =await prisma.service.create({
         data:{
             ...service,

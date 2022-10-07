@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { prisma } from "../../src/config/database";
 import { CreateService } from '../../src/utils/typeUtils';
 
-async function createServiceSupplierPhotos(serviceId:number) {
+async function createPhotosService(serviceId:number) {
     const photo ={
         name:faker.image.imageUrl(), 
         serviceId
@@ -13,30 +13,6 @@ async function createServiceSupplierPhotos(serviceId:number) {
 
     return photos;
 }
-/*
-function createServiceSupplierInfo(){
-    return{
-        service:faker.name.jobTitle(),
-        
-        photos:{
-            create:[
-                {
-                    name:faker.image.imageUrl(),
-                },
-                {
-                    name:faker.image.imageUrl(),
-                },
-                {
-                    name:faker.image.imageUrl(),
-                },
-                {
-                    name:faker.image.imageUrl(),
-                },
-                ]
-        }
-    }
-}
-*/
 
 async function createServiceSupplier(userId: number ){
     const service = await prisma.service.create({
@@ -51,7 +27,7 @@ async function createServiceSupplier(userId: number ){
 
 const serviceFactory={
     createServiceSupplier,
-    createServiceSupplierPhotos
+    createPhotosService
 }
 
 export default serviceFactory;
