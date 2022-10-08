@@ -22,8 +22,8 @@ async function signUp() {
             name: faker.internet.email(),
             password: bcrypt.hashSync(faker.internet.password(), 12),
             email: faker.internet.email(),
-            phone: faker.phone.number('+55 32 #### ####'),
-            cellphone: faker.phone.number('+55 32 #### #####'),
+            phone: faker.phone.number('##########'),
+            cellphone: faker.phone.number('###########'),
             cpf: faker.phone.number('###########'),
             observation: faker.lorem.text(),
             address: {
