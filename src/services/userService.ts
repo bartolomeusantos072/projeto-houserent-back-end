@@ -24,24 +24,31 @@ async function createUser(user: CreateUserData) {
     const SALT = 10;
     const hashPassword = bcrypt.hashSync(user.password, SALT);
     await userRepository.insert({ ...user, password: hashPassword })
+    
 
 }
 
 async function login(login: CreateUserData) {
+
     const user = await userRepository.findUserEmail(login.email);
+
     if (!user) {
         throw unauthorizedError("Invalid credentials");
     }
-
+    
     const isPasswordValid = bcrypt.compareSync(login.password, user.password);
     if (!isPasswordValid) {
         throw unauthorizedError("Invalid credentials");
     }
-
+    
+    const address = await userRepository.findUserAddres(user.id);
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET+"");
 
-    return token;
+
+
+    return {user,address,token};
 }
+
 export const userService = {
     findUserById,
     createUser,

@@ -1,5 +1,4 @@
 import {prisma} from "../config/database";
-import { CreateUserData } from "../utils/typeUtils";
 
 
 export async function findUserEmail(email: string) {
@@ -16,8 +15,31 @@ export async function findById(id: number) {
   });
 }
 
-export async function insert(user: CreateUserData) {
-  return prisma.user.create({
-    data: user,
+export async function findUserAddres(userId:number) {
+  return prisma.address.findUnique({
+    where:{userId}
   });
+}
+export async function insert(user:any) {
+
+  const {name, email, password, phone, cellphone,cpf, address} =user;
+
+  const createUser =  await  prisma.user.create({
+    data: { name, email, password, phone, cellphone, cpf },
+  });
+
+
+  const addAdress = await insertAdress(createUser.id, address)
+  
+   
+}
+
+export async function insertAdress(userId:number,address:any){
+
+  return await prisma.address.create({
+       data:{
+          ...address,
+          userId,
+       }
+    });
 }

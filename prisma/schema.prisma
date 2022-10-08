@@ -11,18 +11,17 @@ datasource db {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  name        String
-  email       String    @unique
-  password    String
-  phone       String
-  cellphone   String
-  cpf         String
-  observation String
-  address     Address?
-  houses      House[]
-  drivers     Driver[]
-  services    Service[]
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  password  String
+  phone     String
+  cellphone String
+  cpf       String
+  address   Address?
+  houses    House[]
+  drivers   Driver[]
+  services  Service[]
 
   @@map("users")
 }
@@ -39,24 +38,25 @@ model Address {
   complement     String
   zipCode        String
   referencePoint String
-  userId         Int @unique
+  userId         Int    @unique
 
   @@map("address")
 }
 
 model House {
-  id            Int            @id @default(autoincrement())
-  proprietary   User           @relation(fields: [proprietaryId], references: [id])
+  id            Int           @id @default(autoincrement())
+  proprietary   User          @relation(fields: [proprietaryId], references: [id])
   type          String
   dormitory     Int
   bathrooms     Int
   garage        Int
-  iptu          String         @unique
+  iptu          String        @unique
   price         String
   condominium   String
   wather        String
   light         String
   availability  Boolean
+  observation   String
   proprietaryId Int
   address       AddressHouse?
   photos        PhotosHouse[]
@@ -76,7 +76,7 @@ model AddressHouse {
   complement     String
   zipCode        String
   referencePoint String
-  houseId        Int @unique
+  houseId        Int    @unique
 
   @@map("addressHouse")
 }
@@ -96,6 +96,7 @@ model Service {
   title  String
   photos PhotosService[]
   userId Int
+
   @@map("services")
 }
 

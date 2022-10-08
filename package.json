@@ -5,10 +5,12 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "",
-    "dev": "nodemon ./src/sever.ts",
+    "dev": "npx nodemon ./src/sever.ts",
     "prisma-test": "dotenv -e .env.test prisma migrate reset --skip-seed",
-    "test": "npm run prisma-test && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i"
+    "test": "npm run prisma-test && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
+    "build": "npx tsc && prisma generate && npx prisma migrate deploy",
+    "start": "node ./dist/src/server.js"
+
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

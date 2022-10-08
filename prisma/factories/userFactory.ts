@@ -25,7 +25,6 @@ async function signUp() {
             phone: faker.phone.number('##########'),
             cellphone: faker.phone.number('###########'),
             cpf: faker.phone.number('###########'),
-            observation: faker.lorem.text(),
             address: {
                 create:{
                     state: faker.address.state(),

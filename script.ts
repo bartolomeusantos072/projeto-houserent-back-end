@@ -11,7 +11,6 @@ async function main() {
             phone: faker.phone.number('+55 32 #### ####'),
             cellphone: faker.phone.number('+55 32 #### #####'),
             cpf: faker.phone.number('###########'),
-            observation: faker.lorem.text(),
             address: {
                 create:{
                     state:faker.address.state(),

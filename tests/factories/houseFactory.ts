@@ -28,6 +28,7 @@ function createHouse(proprietaryId:number) {
       'outro'
     ])[0]!,
     availability: faker.datatype.boolean(),
+    observation: faker.lorem.text(),
     proprietaryId
   }
 
