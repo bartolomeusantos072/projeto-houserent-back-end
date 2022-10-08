@@ -7,8 +7,8 @@ async function createPhotosVehicle(driverId:number) {
         imageUrl:faker.image.imageUrl(), 
         driverId
     }
-    const photos = await prisma.photosDriver.create({
-            data:photo
+    const photos = await prisma.photosDriver.createMany({
+            data:[photo,photo,photo]
         });
 
     return photos;

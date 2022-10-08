@@ -19,7 +19,7 @@ model User {
   cellphone   String
   cpf         String
   observation String
-  address     Address[]
+  address     Address?
   houses      House[]
   drivers     Driver[]
   services    Service[]
@@ -39,7 +39,7 @@ model Address {
   complement     String
   zipCode        String
   referencePoint String
-  userId         Int
+  userId         Int @unique
 
   @@map("address")
 }
@@ -58,7 +58,7 @@ model House {
   light         String
   availability  Boolean
   proprietaryId Int
-  address       AddressHouse[]
+  address       AddressHouse?
   photos        PhotosHouse[]
 
   @@map("houses")
@@ -76,7 +76,7 @@ model AddressHouse {
   complement     String
   zipCode        String
   referencePoint String
-  houseId        Int
+  houseId        Int @unique
 
   @@map("addressHouse")
 }
@@ -96,8 +96,6 @@ model Service {
   title  String
   photos PhotosService[]
   userId Int
-
-  @@unique([userId])
   @@map("services")
 }
 

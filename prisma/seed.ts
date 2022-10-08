@@ -1,110 +1,38 @@
-import { House, PrismaClient } from '@prisma/client'
-import { faker } from '@faker-js/faker';
+import { prisma } from '../src/config/database';
 import houseFactory from './factories/houseFactory';
 import userFactory from './factories/userFactory';
 import driverFactory from './factories/driverFactory';
 import serviceFactory from './factories/serviceFactory';
-const prisma = new PrismaClient()
+
 
 async function main() {
 
+    
     const createUser = await userFactory.signUp()
-    //create house
-    const house =await houseFactory.createHouseRent(createUser.id);
-    const addressHouse = await houseFactory.createAddressHouseRent(house.id)
-    const photosHouse1 = await houseFactory.createPhotosHouses(house.id)
-    const photosHouse2 = await houseFactory.createPhotosHouses(house.id)
-    const photosHouse3 = await houseFactory.createPhotosHouses(house.id)
-    const photosHouse4 = await houseFactory.createPhotosHouses(house.id)
-
-    const createHouseRent = await prisma.house.create({
+    const houseRent = await prisma.house.create({
         data:{
-            ...house,
-            address:{
-                create:{...addressHouse}
-            },
-            photos:{
-                create:[
-                    photosHouse1,
-                    photosHouse2,
-                    photosHouse3,
-                    photosHouse4,
-                ]
-            }
+            ...houseFactory.createHouse(createUser.id)
         }
     });
-
-    //create driver change
-    const vehicle =await driverFactory.createDriverChange(createUser.id)
-    const photosVehicle = await driverFactory.createPhotosVehicle(vehicle.id)
-    const createDriverChange =await prisma.driver.create({
+    const addressHouseRent = await prisma.addressHouse.create({
         data:{
-            ...vehicle,
-            photos:{
-                create:[
-                    photosVehicle,
-                    photosVehicle,
-                    photosVehicle,
-                    photosVehicle,
-                ]
-            }
+            ...houseFactory.createAddressHouse(houseRent.id)
         }
     })
-    
-    const service =await serviceFactory.createServiceSupplier(createUser.id)
-    const photosService = await serviceFactory.createPhotosService(service.id)
-    const createServiceSupplier =await prisma.service.create({
-        data:{
-            ...service,
-            photos:{
-                create:[
-                    photosService,
-                    photosService,
-                    photosService,
-                    photosService,
-                ],
-                
-            }
-        }
-    })
-
-    const user = await prisma.user.create({
-        data: {
-                ...createUser,
-                houses: {
-                    create:[
-                        {...createHouseRent},
-                        {...createHouseRent},
-                        {...createHouseRent},
-                    ]
-                },
-                drivers:{
-                    create:[
-                        {...createDriverChange},
-                        {...createDriverChange},
-                        {...createDriverChange},
-                    ]
-                },
-                services:{
-                    create:[
-                        {...createServiceSupplier},
-                        {...createServiceSupplier},
-                        {...createServiceSupplier},
-                    ]
-                }     
-        },
-    
-           
-    });
-
-    const users =await prisma.user.createMany({
+    const photosHouse =await prisma.photosHouse.createMany({
         data:[
-            user,
-            user,
-            user
-        ],
-        skipDuplicates: true,
+            {...houseFactory.createPhotoHouse(houseRent.id)},
+            {...houseFactory.createPhotoHouse(houseRent.id)},
+            {...houseFactory.createPhotoHouse(houseRent.id)}
+        ]
     })
+
+    const driver = await driverFactory.createDriverChange(createUser.id);
+    const driverPhotos = await driverFactory.createPhotosVehicle(driver.id);
+
+    const service = await serviceFactory.createServiceSupplier(createUser.id);
+    const servicePhotos = await serviceFactory.createPhotosService(service.id);
+    
 
 }
 

@@ -7,8 +7,8 @@ async function createPhotosService(serviceId:number) {
         name:faker.image.imageUrl(), 
         serviceId
     }
-    const photos = await prisma.photosService.create({
-            data: photo
+    const photos = await prisma.photosService.createMany({
+            data:[photo,photo,photo] 
         });
 
     return photos;

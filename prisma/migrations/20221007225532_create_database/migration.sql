@@ -41,6 +41,7 @@ CREATE TABLE "houses" (
     "condominium" TEXT NOT NULL,
     "wather" TEXT NOT NULL,
     "light" TEXT NOT NULL,
+    "availability" BOOLEAN NOT NULL,
     "proprietaryId" INTEGER NOT NULL,
 
     CONSTRAINT "houses_pkey" PRIMARY KEY ("id")
@@ -106,7 +107,7 @@ CREATE TABLE "driver" (
 -- CreateTable
 CREATE TABLE "photosDriver" (
     "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
     "driverId" INTEGER NOT NULL,
 
     CONSTRAINT "photosDriver_pkey" PRIMARY KEY ("id")
