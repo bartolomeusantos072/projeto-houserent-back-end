@@ -29,12 +29,12 @@ export async function insert(user:any) {
   });
 
 
-  const addAdress = await insertAdress(createUser.id, address)
+  const addAdress = await insertAdressByIdUser(createUser.id, address)
   
    
 }
 
-export async function insertAdress(userId:number,address:any){
+export async function insertAdressByIdUser(userId:number,address:any){
 
   return await prisma.address.create({
        data:{
