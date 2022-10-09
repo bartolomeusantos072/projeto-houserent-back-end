@@ -3,8 +3,7 @@ import joi from "joi"
 const regex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jp(e?)g|gif|png|webp|svg)/;
 
 export const photosHouse = joi.object({
-    name:  joi.string().pattern(regex).required().trim(),
-    houseId:joi.number().required(),  
+    name:  joi.string().pattern(regex).required().trim(), 
 })
 
 export const addressHouse = joi.object( {
@@ -17,10 +16,9 @@ export const addressHouse = joi.object( {
     complement: joi.string().allow(""),
     zipCode: joi.string().length(8).required(),
     referencePoint:joi.string().required(),
-    houseId: joi.number().required(),   
+      
   })
-
-export const createImmovelForRentSchema = joi.object({
+export const addHouse = joi.object({
     type:joi.string().valid('house').valid('apartment').valid('kitnet').valid('casa').valid('apartmento').required(),
     dormitory     :joi.number().required(),
     bathrooms     :joi.number().required(),
@@ -31,10 +29,14 @@ export const createImmovelForRentSchema = joi.object({
     wather        :joi.string().valid("individual").valid("dividido entre os moradores").valid("isento").valid("outro").required(),
     light         :joi.string().valid("individual").valid("dividido entre os moradores").valid("isento").valid("outro").required(),
     availability  :joi.boolean().required(),
-    observation   :joi.string().allow("").required(),
-    proprietaryId :joi.number().required(),
+    observation   :joi.string().allow("").required()
+})
+export const createImmovelForRentSchema = joi.object({
+    house: addHouse.required(),
     address: addressHouse.required(),     
     photos: joi.array().items(photosHouse).required()
 })
+
+
 
 

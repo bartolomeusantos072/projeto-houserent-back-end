@@ -1,28 +1,49 @@
-import { Request, Response } from "express";
-import * immovelRepository from "../services/immovelRepository.ts";
+import { CreateHouse } from "../utils/typeUtils";
+import { conflictError, notFoundError } from "../utils/errorUtils";
+import * as immovelRepository from "../repositories/immovelRepository";
+import { userService } from "./userService";
 
-export async function createImmovelForRent(req: Request, res: Response) {
-    const required = req.body
-    await immovelRepository.createImmovelForRent(required);
-    res.sendStatus(201);
+export async function createImmovelForRent(id:number,data:any) {
+    
+   const immovelForRent = await immovelRepository.createImmovelForRent(id,data); 
+ 
+   return immovelForRent;
+    
 }
-export async function deleteImmovelForRent(req: Request, res: Response) {
-    const required = req.params.id
-    await immovelRepository.deleteImmovelForRent(required);
-    res.sendStatus(200);
+export async function getImmovelForRent(userId:number,houseId:number) {
+
+    const immovel = await immovelRepository.findImmovelForRent(userId,houseId);
+    if(!immovel){
+        throw notFoundError("Immovel doesn't exist");
+    }
+
+    return immovel
+
+    
 }
-export async function deleteAllImmovelForRent(req: Request, res: Response) {
-    const required = req.params.id
-    await immovelRepository.deleteAllImmovelForRent(required);
-    res.sendStatus(200);
+
+export async function deleteImmovelForRent(userId:number,houseId:number) {
+    await getImmovelForRent(userId,houseId);
+
+    await immovelRepository.deleteImmovelForRent(userId,houseId);
+    
 }
-export async function findAllImmovelForRent(req: Request, res: Response) {
-    const required = req.query,
-    const result = await immovelRepository.findAllImmovelForRent(required);
-    res.status(200).send(result);
+
+export async function deleteAllImmovelForRent(userId:number) {
+     await userService.findUserById(userId);
+     await immovelRepository.deleteAllImmovelForRent(userId);
+    
 }
-export async function getImmovelForRentById(req: Request, res: Response) {
-    const required = req.params.id
-    const result = await immovelRepository.getImmovelForRentById(required);
-    res.status(200).send(result);
+export async function getImmovelForRentById(houseId:number) {
+   
+    await immovelRepository.getImmovelForRentById(houseId);
+    
 }
+
+export async function getAllImmovelForRent() {
+
+    await immovelRepository.getAllImmovelForRent();
+    
+}
+
+

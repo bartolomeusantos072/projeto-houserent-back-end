@@ -7,10 +7,10 @@ import * as immovelController from "../controllers/immovelController";
 
 const immovelRentRouter = Router();
 
-immovelRentRouter.post("/houserent",validateSchemaMiddleware(createImmovelForRentSchema),ensureAuthenticatedMiddleware, immovelController.createImmovelForRent);
+immovelRentRouter.post("/houserent",ensureAuthenticatedMiddleware,validateSchemaMiddleware(createImmovelForRentSchema), immovelController.createImmovelForRent);
 immovelRentRouter.delete("/houserent/:id",ensureAuthenticatedMiddleware,immovelController.deleteImmovelForRent)
-immovelRentRouter.delete("/houserent/:id",ensureAuthenticatedMiddleware,immovelController.deleteAllImmovelForRent)
-immovelRentRouter.get("/houserent?", immovelController.findAllImmovelForRent)
-immovelRentRouter.get("/houserent/:id",immovelController.getImmovelForRentById)
+immovelRentRouter.delete("/houserent/:userid",ensureAuthenticatedMiddleware,immovelController.deleteAllImmovelForRent)
+immovelRentRouter.get("/houserent/:houseid",immovelController.getImmovelForRentById)
+immovelRentRouter.get("/houserent?", immovelController.getQueryImmovelForRent)
 
 export default immovelRentRouter;
