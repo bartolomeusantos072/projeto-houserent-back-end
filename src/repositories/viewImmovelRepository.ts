@@ -11,7 +11,13 @@ export async function getImmovelForRentById(houseId:number) {
 }
 
 export async function getAllImmovelForRent() {
-   return await prisma.house.findMany(
-    
-   )
+   return await prisma.house.findMany({
+    where:{
+        availability:true,
+    },
+    include:{
+        address:true,
+        photos:true,
+    }
+   })
 }

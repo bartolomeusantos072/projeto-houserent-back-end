@@ -23,19 +23,19 @@ async function insertAddress(houseId: number, address: AddAddressHouse) {
 }
 async function insertPhotos(houseId: number, photos: AddPhotoHouse[]) {
     const photosMap = photos.map(
-        async photo=>{
+        async photo => {
             await prisma.photosHouse.create({
-                data:{
-                    ...photo,houseId
+                data: {
+                    ...photo, houseId
                 }
+            })
         })
-    })
-    
+
     return photosMap;
 }
 
 export async function createImmovelForRent(id: number, data: any) {
-    const { house, address,photos, } = data;
+    const { house, address, photos, } = data;
     const addHouse = await insertHouse(id, house);
     const addAddress = await insertAddress(addHouse.id, address);
     const addPhotos = await insertPhotos(addHouse.id, photos);
@@ -50,7 +50,11 @@ export async function findImmovelForRent(proprietaryId: number, houseId: number)
         where: {
             proprietaryId,
             id: houseId,
-        }
+        },
+        include: {
+            address: true,
+            photos: true,
+        },
     })
 
 }
@@ -58,7 +62,7 @@ export async function findAllImmovelForRent(proprietaryId: number) {
     return prisma.house.findMany({
         where: {
             proprietaryId,
-        }
+        },
     })
 
 }
@@ -78,23 +82,37 @@ export async function deleteAllImmovelForRent(proprietaryId: number) {
     return prisma.house.deleteMany({
         where: {
             proprietaryId,
-        }
+        },
+
     });
 
 }
 
-export async function getImmovelForRentById(houseId:number) {
-   
+export async function getImmovelForRentById(houseId: number) {
+
     return prisma.house.findFirst({
         where: {
             id: houseId,
-        }
+        },
+        include: {
+            address: true,
+            photos: true,
+        },
+
     })
-    
+
 }
 
 export async function getAllImmovelForRent() {
-   return await prisma.house.findMany(
-    
-   )
+    return await prisma.house.findMany(
+        {
+            where: {
+                availability: true,
+            },
+            include: {
+                address: true,
+                photos: true,
+            }
+        }
+    )
 }
