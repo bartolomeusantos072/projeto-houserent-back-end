@@ -36,13 +36,13 @@ export async function deleteAllImmovelForRent(userId:number) {
 }
 export async function getImmovelForRentById(houseId:number) {
    
-    await immovelRepository.getImmovelForRentById(houseId);
+   return await immovelRepository.getImmovelForRentById(houseId);
     
 }
 
 export async function getAllImmovelForRent() {
 
-    await immovelRepository.getAllImmovelForRent();
+   return await immovelRepository.getAllImmovelForRent();
     
 }
 

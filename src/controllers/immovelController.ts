@@ -30,7 +30,7 @@ export async function deleteAllImmovelForRent(req: Request, res: Response) {
 }
 
 export async function getImmovelForRentById(req: Request, res: Response) {
-    const required = Number(req.params.id);
+    const required = Number(req.params.houseId);
     if(isNaN(required)){
         res.sendStatus(422);
     }
@@ -43,12 +43,14 @@ export async function getQueryImmovelForRent(req: Request, res: Response) {
     const option = req.query
     const isEmpty = Object.keys(option).length === 0;
     if (isEmpty) {
-           
-        result = await immovelService.getAllImmovelForRent();
+
+      result= await immovelService.getAllImmovelForRent();
         
+    }else{
+      result ="não esta vazio"  
     }
     
 
-    
+    res.status(200).send(result);
    
 }

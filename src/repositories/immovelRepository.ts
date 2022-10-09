@@ -1,6 +1,6 @@
 import { prisma } from "../config/database";
 import { AddAddressHouse, AddPhotoHouse, CreateHouse } from "../utils/typeUtils";
-import { House } from '@prisma/client'
+
 
 
 async function insertHouse(proprietaryId: number, house: CreateHouse) {
@@ -84,6 +84,7 @@ export async function deleteAllImmovelForRent(proprietaryId: number) {
 }
 
 export async function getImmovelForRentById(houseId:number) {
+   
     return prisma.house.findFirst({
         where: {
             id: houseId,
@@ -93,7 +94,7 @@ export async function getImmovelForRentById(houseId:number) {
 }
 
 export async function getAllImmovelForRent() {
-   const result= await prisma.house.findMany()
-   console.log(result);
+   return await prisma.house.findMany(
     
+   )
 }
