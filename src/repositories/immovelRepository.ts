@@ -80,12 +80,12 @@ export async function deleteImmovelForRent( id: number) {
 }
 
 export async function deleteAllImmovelForRent(proprietaryId: number) {
-    console.log(proprietaryId);
+    
     return prisma.house.deleteMany({
         where: {
             proprietaryId,
         },
-
+       
     });
 
 }

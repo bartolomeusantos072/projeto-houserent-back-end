@@ -26,7 +26,6 @@ export async function availabilityImmovelForRent(req:Request,res:Response) {
     
 }
 export async function deleteImmovelForRent(req: Request, res: Response) {
-    
     const houseId =Number(req.params.houseId);
     if(isNaN(houseId)){
         res.sendStatus(422);
@@ -39,14 +38,14 @@ export async function deleteImmovelForRent(req: Request, res: Response) {
     const result=await immovelService.deleteImmovelForRent(userId,houseId);
     res.status(200).send(result);
 }
-
 export async function deleteAllImmovelForRent(req: Request, res: Response) {
+    
     const userId=Number(res.locals.user.id);
     if(isNaN(userId)){
         res.sendStatus(422);
     }
     const result= await immovelService.deleteAllImmovelForRent(userId);
-    res.status(200).send(result);
+    res.status(200).send(result).send("immoveis excuido com sucesso");
 }
 export async function findImmovelForRentById(req: Request, res: Response) {
     const {id}=res.locals.user;

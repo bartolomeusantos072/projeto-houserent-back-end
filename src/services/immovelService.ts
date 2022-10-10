@@ -20,7 +20,7 @@ export async function availabilityImmovelForRent(userId:number,houseId:number,av
 
 export async function deleteImmovelForRent(userId:number,houseId:number) {
    const search = await findImmovelForRentById(userId,houseId);
-   
+   console.log(search);
    if(!search) throw notFoundError("Immovel doesn't exist");
 
     await immovelRepository.deleteImmovelForRent(houseId);
@@ -28,15 +28,17 @@ export async function deleteImmovelForRent(userId:number,houseId:number) {
 }
 
 export async function deleteAllImmovelForRent(userId:number) {
-   const search =await userService.findUserById(userId);
-   console.log(search);
-    return await immovelRepository.deleteAllImmovelForRent(userId);
+    const {id} = await userService.findUserById(userId);
+    
+    return await immovelRepository.deleteAllImmovelForRent(id);
     
 }
 
 export async function findImmovelForRentById(id:number,houseId:number) {
 
    const immovel = await immovelRepository.findImmovelForRentById(id,houseId);
+   if(immovel) throw notFoundError("Immovel doesn't exist");
+
    return immovel
     
 }

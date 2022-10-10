@@ -12,7 +12,7 @@ immovelRentRouter.get("/houserent", ensureAuthenticatedMiddleware, immovelContro
 immovelRentRouter.get("/houserent/myimmovels/:houseId", ensureAuthenticatedMiddleware, immovelController.findImmovelForRentById)
 immovelRentRouter.post("/houserent", ensureAuthenticatedMiddleware, validateSchemaMiddleware(createImmovelForRentSchema), immovelController.createImmovelForRent);
 immovelRentRouter.put("/houserent/:houseId", ensureAuthenticatedMiddleware, validateSchemaMiddleware(availabilityImmovelSchema), immovelController.availabilityImmovelForRent);
-immovelRentRouter.delete("/houserent/:houseId",ensureAuthenticatedMiddleware,immovelController.deleteImmovelForRent)
 immovelRentRouter.delete("/houserent/all",ensureAuthenticatedMiddleware,immovelController.deleteAllImmovelForRent)
+immovelRentRouter.delete("/houserent/:houseId",ensureAuthenticatedMiddleware,immovelController.deleteImmovelForRent)
 
 export default immovelRentRouter;
