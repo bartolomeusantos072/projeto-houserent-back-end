@@ -9,7 +9,6 @@ async function main() {
 
     
     const createUser = await userFactory.signUp()
-    console.log(createUser);
     
     const houseRent = await prisma.house.create({
         data:{

@@ -5,6 +5,10 @@ export async function getImmovelForRentById(houseId:number) {
     return prisma.house.findFirst({
         where: {
             id: houseId,
+        },
+        include:{
+            address:true,
+            photos:true,
         }
     })
     

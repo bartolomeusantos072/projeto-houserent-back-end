@@ -28,7 +28,7 @@ model User {
 
 model Address {
   id             Int    @id @default(autoincrement())
-  user           User   @relation(fields: [userId], references: [id])
+  user           User   @relation(fields: [userId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   state          String
   country        String
   district       String
@@ -45,28 +45,28 @@ model Address {
 
 model House {
   id            Int           @id @default(autoincrement())
-  proprietary   User          @relation(fields: [proprietaryId], references: [id])
+  proprietary   User          @relation(fields: [proprietaryId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   type          String
   dormitory     Int
   bathrooms     Int
   garage        Int
-  iptu          String        @unique
+  iptu          String        
   price         String
   condominium   String
   wather        String
   light         String
   availability  Boolean
   observation   String
-  proprietaryId Int
   address       AddressHouse?
   photos        PhotosHouse[]
-
+  proprietaryId Int
+  @@unique([iptu,proprietaryId])
   @@map("houses")
 }
 
 model AddressHouse {
   id             Int    @id @default(autoincrement())
-  house          House  @relation(fields: [houseId], references: [id])
+  house          House  @relation(fields: [houseId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   state          String
   country        String
   district       String
@@ -83,7 +83,7 @@ model AddressHouse {
 
 model PhotosHouse {
   id      Int    @id @default(autoincrement())
-  house   House  @relation(fields: [houseId], references: [id])
+  house   House  @relation(fields: [houseId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   name    String
   houseId Int
 
@@ -92,7 +92,7 @@ model PhotosHouse {
 
 model Service {
   id     Int             @id @default(autoincrement())
-  user   User            @relation(fields: [userId], references: [id])
+  user   User            @relation(fields: [userId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   title  String
   photos PhotosService[]
   userId Int
@@ -102,7 +102,7 @@ model Service {
 
 model PhotosService {
   id        Int     @id @default(autoincrement())
-  service   Service @relation(fields: [serviceId], references: [id])
+  service   Service @relation(fields: [serviceId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   name      String
   serviceId Int
 
@@ -111,7 +111,7 @@ model PhotosService {
 
 model Driver {
   id           Int            @id @default(autoincrement())
-  user         User           @relation(fields: [userId], references: [id])
+  user         User           @relation(fields: [userId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   vehicle      String
   type         String
   manufacturer String
@@ -126,7 +126,7 @@ model Driver {
 
 model PhotosDriver {
   id       Int    @id @default(autoincrement())
-  driver   Driver @relation(fields: [driverId], references: [id])
+  driver   Driver @relation(fields: [driverId], references: [id],onUpdate: Cascade,onDelete: Cascade)
   imageUrl String
   driverId Int
 

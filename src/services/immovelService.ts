@@ -1,5 +1,4 @@
-import { CreateHouse } from "../utils/typeUtils";
-import { conflictError, notFoundError } from "../utils/errorUtils";
+import { notFoundError } from "../utils/errorUtils";
 import * as immovelRepository from "../repositories/immovelRepository";
 import { userService } from "./userService";
 
@@ -10,40 +9,40 @@ export async function createImmovelForRent(id:number,data:any) {
    return immovelForRent;
     
 }
-export async function getImmovelForRent(userId:number,houseId:number) {
 
-    const immovel = await immovelRepository.findImmovelForRent(userId,houseId);
-    if(!immovel){
-        throw notFoundError("Immovel doesn't exist");
-    }
+export async function availabilityImmovelForRent(userId:number,houseId:number,availability:boolean) {
+   const search = await findImmovelForRentById(userId,houseId);
+   if(!search) throw notFoundError("Immovel doesn't exist");
 
-    return immovel
-
-    
+  return await immovelRepository.availabilityImmovelForRent(houseId,availability);
+   
 }
 
 export async function deleteImmovelForRent(userId:number,houseId:number) {
-    await getImmovelForRent(userId,houseId);
+   const search = await findImmovelForRentById(userId,houseId);
+   
+   if(!search) throw notFoundError("Immovel doesn't exist");
 
-    await immovelRepository.deleteImmovelForRent(userId,houseId);
-    
+    await immovelRepository.deleteImmovelForRent(houseId);
+  
 }
 
 export async function deleteAllImmovelForRent(userId:number) {
-     await userService.findUserById(userId);
-     await immovelRepository.deleteAllImmovelForRent(userId);
+   const search =await userService.findUserById(userId);
+   console.log(search);
+    return await immovelRepository.deleteAllImmovelForRent(userId);
     
 }
-export async function getImmovelForRentById(houseId:number) {
+
+export async function findImmovelForRentById(id:number,houseId:number) {
+
+   const immovel = await immovelRepository.findImmovelForRentById(id,houseId);
+   return immovel
+    
+}
+
+export async function findAllImmovelForRent(proprietaryId:number) {
    
-   return await immovelRepository.getImmovelForRentById(houseId);
+   return await immovelRepository.findAllImmovelForRent(proprietaryId);
     
 }
-
-export async function getAllImmovelForRent() {
-
-   return await immovelRepository.getAllImmovelForRent();
-    
-}
-
-

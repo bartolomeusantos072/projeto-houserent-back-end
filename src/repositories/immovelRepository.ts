@@ -33,27 +33,21 @@ async function insertPhotos(houseId: number, photos: AddPhotoHouse[]) {
 
     return photosMap;
 }
-
 export async function createImmovelForRent(id: number, data: any) {
     const { house, address, photos, } = data;
     const addHouse = await insertHouse(id, house);
-    const addAddress = await insertAddress(addHouse.id, address);
-    const addPhotos = await insertPhotos(addHouse.id, photos);
+    const addAddress =  insertAddress(addHouse.id, address);
+    const addPhotos =  insertPhotos(addHouse.id, photos);
 
     return { addHouse, addAddress, addPhotos }
 
 }
-
-export async function findImmovelForRent(proprietaryId: number, houseId: number) {
+export async function findImmovelForRentById(proprietaryId: number,houseId:number) {
 
     return prisma.house.findFirst({
         where: {
             proprietaryId,
-            id: houseId,
-        },
-        include: {
-            address: true,
-            photos: true,
+            id:houseId,
         },
     })
 
@@ -63,37 +57,6 @@ export async function findAllImmovelForRent(proprietaryId: number) {
         where: {
             proprietaryId,
         },
-    })
-
-}
-
-export async function deleteImmovelForRent(proprietaryId: number, houseId: number) {
-
-    return prisma.house.delete({
-        where: {
-            id: houseId,
-        }
-    })
-
-}
-
-export async function deleteAllImmovelForRent(proprietaryId: number) {
-
-    return prisma.house.deleteMany({
-        where: {
-            proprietaryId,
-        },
-
-    });
-
-}
-
-export async function getImmovelForRentById(houseId: number) {
-
-    return prisma.house.findFirst({
-        where: {
-            id: houseId,
-        },
         include: {
             address: true,
             photos: true,
@@ -103,6 +66,45 @@ export async function getImmovelForRentById(houseId: number) {
 
 }
 
+export async function deleteImmovelForRent( id: number) {
+
+    await prisma.house.delete({
+        where:{
+            id
+        },
+        include:{
+            address:true,
+            photos:true,
+        }
+    });
+}
+
+export async function deleteAllImmovelForRent(proprietaryId: number) {
+    console.log(proprietaryId);
+    return prisma.house.deleteMany({
+        where: {
+            proprietaryId,
+        },
+
+    });
+
+}
+export async function availabilityImmovelForRent( houseId: number,availability:boolean) {
+
+    return prisma.house.update({
+        where: {
+            id:houseId,
+        },
+        data:{
+            availability,
+        },
+        include:{
+            address: true,
+            photos: true,
+        }
+    })
+
+}
 export async function getAllImmovelForRent() {
     return await prisma.house.findMany(
         {
